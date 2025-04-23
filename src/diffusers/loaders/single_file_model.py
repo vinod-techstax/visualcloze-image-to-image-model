@@ -137,7 +137,7 @@ SINGLE_FILE_LOADABLE_CLASSES = {
 
 
 def _get_single_file_loadable_mapping_class(cls):
-    diffusers_module = importlib.import_module(__name__.split(".")[0])
+    
     for loadable_class_str in SINGLE_FILE_LOADABLE_CLASSES:
         loadable_class = getattr(diffusers_module, loadable_class_str)
 

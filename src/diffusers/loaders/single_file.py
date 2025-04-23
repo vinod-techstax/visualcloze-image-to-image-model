@@ -88,7 +88,8 @@ def load_single_file_sub_model(
         and transformers_version >= version.parse("4.20.0")
     )
 
-    diffusers_module = importlib.import_module(__name__.split(".")[0])
+    # diffusers_module = importlib.import_module(__name__.split(".")[0])
+    diffusers_module = importlib.import_module("diffusers")
     is_diffusers_single_file_model = issubclass(class_obj, diffusers_module.FromOriginalModelMixin)
     is_diffusers_model = issubclass(class_obj, diffusers_module.ModelMixin)
     is_diffusers_scheduler = issubclass(class_obj, diffusers_module.SchedulerMixin)
@@ -179,7 +180,8 @@ def load_single_file_sub_model(
 
 
 def _map_component_types_to_config_dict(component_types):
-    diffusers_module = importlib.import_module(__name__.split(".")[0])
+    # diffusers_module = importlib.import_module(__name__.split(".")[0])
+    diffusers_module = importlib.import_module("diffusers")
     config_dict = {}
     component_types.pop("self", None)
 
