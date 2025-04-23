@@ -70,8 +70,9 @@ from ..utils.torch_utils import get_device, is_compiled_module
 
 if is_torch_npu_available():
     import torch_npu  # noqa: F401
+# from src.diffusers.pipelines.pipeline_loading_utils
 
-from .pipeline_loading_utils import (
+from src.diffusers.pipelines.pipeline_loading_utils import (
     ALL_IMPORTABLE_CLASSES,
     CONNECTED_PIPES_KEYS,
     CUSTOM_PIPELINE_FILE_NAME,
@@ -1459,10 +1460,13 @@ class DiffusionPipeline(ConfigMixin, PushToHubMixin):
                 version.parse(__version__).base_version
             ) >= version.parse("0.22.0"):
                 warn_deprecated_model_variant(pretrained_model_name, token, variant, revision, filenames)
-
+                
+            print("start --> _get_custom_components_and_folders")
+                
             custom_components, folder_names = _get_custom_components_and_folders(
-                pretrained_model_name, config_dict, filenames, variant
+                pretrained_model_name, config_dict, filenames, variant, None
             )
+            print("end --> _get_custom_components_and_folders")
             custom_class_name = None
             if custom_pipeline is None and isinstance(config_dict["_class_name"], (list, tuple)):
                 custom_pipeline = config_dict["_class_name"][0]

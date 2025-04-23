@@ -937,19 +937,32 @@ def _get_custom_components_and_folders(
     pretrained_model_name: str,
     config_dict: Dict[str, Any],
     filenames: Optional[List[str]] = None,
-    variant_filenames: Optional[List[str]] = None,
     variant: Optional[str] = None,
+    variant_filenames: Optional[List[str]] = None,
 ):
+    print("inside _get_custom_components_and_folders")
+    print("task 5")
     config_dict = config_dict.copy()
 
     # retrieve all folder_names that contain relevant files
     folder_names = [k for k, v in config_dict.items() if isinstance(v, list) and k != "_class_name"]
 
-    diffusers_module = importlib.import_module(__name__.split(".")[0])
+    print("task 6")
+    
+    # diffusers_module = importlib.import_module(__name__.split(".")[0])
+    diffusers_module = importlib.import_module("diffusers")
+    
+    print("task 6.5")
+    
+    print("Diffusers module contents:", dir(diffusers_module))
+    
     pipelines = getattr(diffusers_module, "pipelines")
+    
+    print("task 7")
 
     # optionally create a custom component <> custom file mapping
     custom_components = {}
+    print("task 9")
     for component in folder_names:
         module_candidate = config_dict[component][0]
 
@@ -965,7 +978,7 @@ def _get_custom_components_and_folders(
             raise ValueError(
                 f"{candidate_file} as defined in `model_index.json` does not exist in {pretrained_model_name} and is not a module in 'diffusers/pipelines'."
             )
-
+    print("task 8", custom_components)
     return custom_components, folder_names
 
 
